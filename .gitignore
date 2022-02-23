@@ -1,0 +1,6 @@
+# .gitignore 
+# Ignores all files in bin folder
+/bin/*
+
+# Allows files that have a dot
+!/bin/*.*
