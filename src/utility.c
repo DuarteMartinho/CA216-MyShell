@@ -18,3 +18,18 @@ void myprompt(char *buf) {
     fputs(prompt, stdout);                     // print prompt
 }
 
+
+char ** inputstoargs(char * input, int *size) {
+    int i = 0; // Sets initial position
+    char *arg; // Pointer for args
+    char ** args = calloc(strlen(input), sizeof(char*)); // Creates args array
+
+    arg = strtok(input, SEPARATORS); // Tokenizes the input i.e separates input
+    while (arg != NULL) {
+        args[i] = arg; // Setts current `arg` to the array `args` at position i
+        i++; // Increments 1 to the position
+        arg = strtok(NULL, SEPARATORS); // Advances to next arg
+    }
+    *size = i; // Sets size pointer to the last position of array
+    return args; // Returns the array
+}
