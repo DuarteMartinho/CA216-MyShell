@@ -32,7 +32,6 @@ int main(int argc, char **argv) {
 }
 
 void batchfileMode(int argc, char **argv) {
-    fputs("BATCHFILE MODE\n", stdout);
 
     char buf[MAX_BUFFER]; // line buffer
 
@@ -44,18 +43,30 @@ void batchfileMode(int argc, char **argv) {
     putenv(shell);
 
 
-    // myprompt(buf);
+    FILE *file = fopen(argv[1], "r"); // Creates file pointer and opens it in read mode
+    char line[MAX_BUFFER]; // creates a line with a max buffer
 
-    // int array_size = 0;
-    // char ** cmd = inputstoargs(buf, &array_size);
+    if (file == NULL) { // Checks if file can be accessed
+        fputs("myshell: Can not find or read file.\n", stdout);
+    } else {
+        while (fgets(line, sizeof(line), file) != NULL) {
+            myprompt(buf);
+            fputs(line, stdout);
+            
+            int array_size = 0;
+            char ** cmd = inputstoargs(line, &array_size);
 
-    // int status; // Defines status for the fork
+            int status; // Defines status for the fork
 
-    // my_commands(cmd, array_size, buf);
+            my_commands(cmd, array_size, buf);
+            
+            wait(&status); // Waits for child process to finish
+            fputs("\n", stdout);
+        }
+    }
+
+
     
-    // wait(&status); // Waits for child process to finish
-    // fputs("\n", stdout);
-    // myprompt(buf);
 }
 
 void myshellMode(int argc, char **argv) {

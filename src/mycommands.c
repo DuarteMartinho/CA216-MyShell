@@ -24,7 +24,9 @@ void do_os(char **args);
 void my_commands(char **cmd, int array_size, char *buf) {
     if (cmd[0] != NULL && !strcmp(cmd[0],"quit")) {
         // quit command is in parent (outside fork) because cant exit from child process 
-        exit(0);
+        _exit(0); 
+        // exit(0) swapped to _exit(0) due to problem with fork when files where open
+        // https://stackoverflow.com/questions/50110992/why-does-forking-my-process-cause-the-file-to-be-read-infinitely
     } else if (cmd[0] != NULL && !strcmp(cmd[0],"dir") && cmd[1] != NULL) {
         // dir command
         do_dir(cmd[1]);
@@ -52,7 +54,9 @@ void my_commands(char **cmd, int array_size, char *buf) {
                 do_os(cmd);
             } else {
                 // Exits child process if no command given
-                exit(0);
+                _exit(0); 
+                // exit(0) swapped to _exit(0) due to problem with fork when files where open
+                // https://stackoverflow.com/questions/50110992/why-does-forking-my-process-cause-the-file-to-be-read-infinitely
             }
         }
     }
@@ -126,5 +130,7 @@ void do_os(char **args) {
     }
     system(cmd);
     free(cmd);
-    exit(0);
+    _exit(0); 
+    // exit(0) swapped to _exit(0) due to problem with fork when files where open
+    // https://stackoverflow.com/questions/50110992/why-does-forking-my-process-cause-the-file-to-be-read-infinitely
 }

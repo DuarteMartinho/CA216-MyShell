@@ -1,0 +1,10 @@
+clr
+dir .
+environ
+ls
+pwd
+pause
+help
+ls -la
+echo Bye
+quit
