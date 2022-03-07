@@ -6,5 +6,5 @@ pwd
 pause
 help
 ls -la
-echo Bye
+echo Bye this is a test
 quit

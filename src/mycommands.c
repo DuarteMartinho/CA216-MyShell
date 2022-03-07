@@ -21,15 +21,20 @@ void do_echo(char **args, int array_size);
 // void do_help();
 void do_os(char **args);
 
-void my_commands(char **cmd, int array_size, char *buf) {
+void my_commands(char **cmd, int array_size, char *buf, int output, char *out_file) {
+
     if (cmd[0] != NULL && !strcmp(cmd[0],"quit")) {
         // quit command is in parent (outside fork) because cant exit from child process 
         _exit(0); 
         // exit(0) swapped to _exit(0) due to problem with fork when files where open
         // https://stackoverflow.com/questions/50110992/why-does-forking-my-process-cause-the-file-to-be-read-infinitely
-    } else if (cmd[0] != NULL && !strcmp(cmd[0],"dir") && cmd[1] != NULL) {
-        // dir command
-        do_dir(cmd[1]);
+    } else if (cmd[0] != NULL && !strcmp(cmd[0],"dir")) {
+        if (cmd[1] != NULL) {
+            // dir command
+            do_dir(cmd[1]);
+        } else {
+            fprintf(stdout, "myshell: Please provide a directory name or path.\n");
+        }
     } else if (cmd[0] != NULL && !strcmp(cmd[0],"environ")){
         // Get system environment variables
         do_env();
@@ -67,8 +72,7 @@ void do_cd(char **args, char *buf) {
     if (args[1] == NULL) {
         // PWD
         char *currdir = getcwd(buf, MAX_BUFFER);
-        fputs(currdir, stdout);
-        fputs("\n", stdout);
+        fprintf(stdout, "%s\n", currdir);
     } else {
         int result = chdir(dir);
         if (result == 0) {
@@ -102,8 +106,7 @@ void do_dir(char *dir) {
 void do_env() {
     char **environ2 = environ;
     while (*environ2){
-        fputs(*environ2++, stdout);
-        fputs("\n", stdout);
+        fprintf(stdout, "%s\n", *environ2++);
     }
 }
 
@@ -116,21 +119,17 @@ void do_pause() {
 void do_echo(char **args, int array_size) {
 
     for (int i=1; i < array_size; i++) {
-        fputs(args[i], stdout);
-        fputs(" ", stdout);
+        fprintf(stdout, "%s ", args[i]);
     }
     fputs("\n", stdout);
 }
 
 void do_os(char **args) {
-    char *cmd = calloc(MAX_BUFFER, sizeof(char));
-    while (*args) {
-        strcat(cmd, *args++);
-        strcat(cmd, " ");
+    int res = execvp(args[0], args);
+    if (res == -1) {
+        fprintf(stdout, "myshell: command not found\n");
     }
-    system(cmd);
-    free(cmd);
-    _exit(0); 
+    _exit(0);
     // exit(0) swapped to _exit(0) due to problem with fork when files where open
     // https://stackoverflow.com/questions/50110992/why-does-forking-my-process-cause-the-file-to-be-read-infinitely
 }

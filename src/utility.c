@@ -13,9 +13,7 @@
 void myprompt(char *buf) {
     char * prompt = "$ " ;
     char *currdir = getcwd(buf, MAX_BUFFER);
-    fputs(currdir, stdout);                  // shell prompt
-    fputs("\n", stdout);                  // shell prompt
-    fputs(prompt, stdout);                     // print prompt
+    fprintf(stdout, "%s\n%s", currdir, prompt); // print prompt
 }
 
 

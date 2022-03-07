@@ -15,17 +15,64 @@
 extern char **environ;
 
 void batchfileMode(int argc, char **argv);
-void myshellMode(int argc, char **argv);
+void myshellMode(int argc, char **argv, char *out_file);
 
 
 int main(int argc, char **argv) {
 
     
-    if (argc == 2) { // Checks if args amount is 2 i.e ./myshell batchfile
+    if (argc == 2 && !(!strcmp(argv[1], ">") || !strcmp(argv[1], ">>") || !strcmp(argv[1], "<"))) { // Checks if args amount is 2 i.e ./myshell batchfile
         batchfileMode(argc, argv);
-    } else { // Else goes into normal shell
-        // TODO: Add I/O 
-        myshellMode(argc, argv);
+    } else { // Else goes into normal shell 
+        int input = 1;
+        char *in_file = "";
+        char *out_file = "";
+        char *customArgs[MAX_ARGS];
+        int customArgs_count = 0;
+        for (int i = 1; i < argc; i++) {
+            if (!strcmp(argv[i],">")) {
+                if (argv[i + 1] != NULL) {
+                    // Check if file exists
+                    // if it does Truncate File
+
+                    fopen(argv[i + 1], "w+");
+                    strcpy(out_file, argv[i + 1]);
+                } else {
+                    fputs("myshell: No file provided", stdout);
+                }
+            } else if (!strcmp(argv[i],">>")) {
+                
+                if (argv[i + 1] != NULL) {
+                    // Check if file exists
+                    // if it does append to File
+                    fopen(argv[i + 1], "a");
+                    strcpy(out_file, argv[i + 1]);
+                } else {
+                    fputs("myshell: No file provided", stdout);
+                }
+            } else if (!strcmp(argv[i],"<")) {
+                if (argv[i + 1] != NULL) {
+                    // Input file
+                    input = 0;
+                    strcpy(in_file, argv[i + 1]);
+                } else {
+                    fputs("myshell: No file provided", stdout);
+                }
+            } else {
+                customArgs[customArgs_count] = argv[i];
+                customArgs_count++;
+            }
+        }
+
+        if (customArgs_count > 0) {
+            if (input == 0) {
+                customArgs[customArgs_count] = "<";
+                customArgs[customArgs_count + 1] = in_file;
+            }
+            execvp(customArgs[0], customArgs);
+        }
+
+        myshellMode(argc, argv, out_file);
     }
     
     return 0;
@@ -69,7 +116,7 @@ void batchfileMode(int argc, char **argv) {
     
 }
 
-void myshellMode(int argc, char **argv) {
+void myshellMode(int argc, char **argv, char *out_file) {
     char buf[MAX_BUFFER]; // line buffer
 
     char *currdir = getcwd(buf, MAX_BUFFER);
