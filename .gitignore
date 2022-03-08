@@ -1,6 +1,13 @@
+# Name: Duarte Martinho
+# Student Number: 20410974
+# I acknowledge DCU's Academic Integrity Policy
+
 # .gitignore 
 # Ignores all files in bin folder
 /bin/*
 
 # Allows files that have a dot
 !/bin/*.*
+
+# Ignores vscode files
+.vscode/*
