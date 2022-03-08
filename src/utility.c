@@ -1,3 +1,7 @@
+// Name: Duarte Martinho
+// Student Number: 20410974
+// I acknowledge DCU's Academic Integrity Policy
+
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,14 +10,14 @@
 #include <errno.h>
 #include <sys/types.h>
 
-#define MAX_BUFFER 1024                        // max line buffer
-#define MAX_ARGS 64                            // max # args
-#define SEPARATORS " \t\n"                     // token separators
+#define MAX_BUFFER 1024 // max line buffer
+#define MAX_ARGS 64 // max # args
+#define SEPARATORS " \t\n" // token separators
 
 void myprompt(char *buf) {
-    char * prompt = "$ " ;
-    char *currdir = getcwd(buf, MAX_BUFFER);
-    fprintf(stdout, "%s\n%s", currdir, prompt); // print prompt
+    char * prompt = "$ " ; // Defines prompt
+    char *currdir = getcwd(buf, MAX_BUFFER); // Gets current working directory
+    fprintf(stdout, "%s\n%s", currdir, prompt); // Prints out to screen the prompt
 }
 
 
