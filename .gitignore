@@ -11,3 +11,6 @@
 
 # Ignores vscode files
 .vscode/*
+
+# Ignore mac files
+.DS_Store
