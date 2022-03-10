@@ -67,12 +67,14 @@ AUTHOR
     myshell was developed by Duarte Martinho.
 
 REFERENCES
+    All the following references are resources that I have used to create myshell.
     1. environ - man page: https://man7.org/linux/man-pages/man7/environ.7.html
     2. chdir - man page: https://man7.org/linux/man-pages/man2/chdir.2.html
     3. putenv - man page: https://man7.org/linux/man-pages/man3/putenv.3.html
     4. fputs - man page: https://man7.org/linux/man-pages/man3/fputs.3p.html
     5. fork - man page: https://man7.org/linux/man-pages/man2/fork.2.html
     6. exec - man page: https://man7.org/linux/man-pages/man3/exec.3.html
+    7. open - man page: https://man7.org/linux/man-pages/man2/open.2.html
 
 
 //----------------------------------------------------------------
