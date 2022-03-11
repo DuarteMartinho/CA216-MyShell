@@ -12,14 +12,68 @@ START/SHUTDOWN
     4. And in your current command-line run `./myshell`
 
 COMMANDS
-    - help: display the user manual using the more filter
-    - cd: change the current working directory
-    - dir: list tge contents of a given directory
-    - environ: list all environment variables
-    - pause: pauses the shell untill `ENTER` is pressed
-    - echo: echo on display the args passed in
-    - quit: quit the shell
-    - Any Other OS Commands
+
+    HELP
+        DESCRIPTION
+            This is the help command that shows this manual
+
+        USAGE
+            help
+
+    CD
+        DESCRIPTION
+            This command will change directory if arg1 is given, else it will just print the current working directory.
+
+        USAGE
+            cd <arg1>
+                OR
+            cd
+
+    DIR
+        DESCRIPTION
+            This command will list all the directories and files in the folder name or path given
+        USAGE
+            dir <folder name>
+                OR
+            dir <path to folder>
+
+    ENVIRON
+        DESCRIPTION
+            This command will print all the environment variables
+
+        USAGE
+            environ
+
+    PAUSE
+        DESCRIPTION
+            This command will pause the shell until the user presses ENTER
+        
+        USAGE
+            pause
+
+    ECHO
+        DESCRIPTION
+            This command will echo all the args to standard output or to a output file given by I/O redirection
+
+        USAGE
+            echo <args> 
+                OR 
+            echo <args> + I/O redirection
+
+    QUIT
+        DESCRIPTION
+            This command will exit the shell
+
+        USAGE
+            quit
+
+    OTHER COMMANDS
+        DESCRIPTION
+        This shell supports any other commands to be used with a max args of 64.
+        All of these commands support I/O redirection from a file and to a file.
+
+        USAGE
+            <programme> <arg1> <arg2> <arg3> ...  <last_arg>
 
 ENVIRONMENT
     Environment values are variables normally set by the shell/OS. It is composed by a "NAME=VALUE" the value is normally a string.
