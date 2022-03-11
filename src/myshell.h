@@ -12,8 +12,9 @@
 
 // Function Prototypes
 // utility.c
-void myprompt(char *buf);
+void setInitialEnv(char *buf);
 char ** inputstoargs(char * input, int *size);
+void myprompt(char *buf);
 
 // mycommands.c
 void my_commands(char **cmd, int array_size, char *buf);
